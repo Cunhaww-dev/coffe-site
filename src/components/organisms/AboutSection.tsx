@@ -46,7 +46,7 @@ export function AboutSection() {
               De acordo com registros do ano de 575 d.C, o pastor observou que suas cabras ficavam alegres e cheias de energia depois de mastigar frutos vermelho-amarelados dos arbustos.
             </Typography>
             <Typography variant="body">
-              Os árabes dominaram rapidamente a técnica de plantio. A bebida recebeu o nome de "Kahwah" ou "Cahue", que significa "força". Somente no século XIV o processo de torrefação adquiriu a forma e o gosto que conhecemos hoje, transformando-se num rito global de sociabilidade.
+              Os árabes dominaram rapidamente a técnica de plantio. A bebida recebeu o nome de &quot;Kahwah&quot; ou &quot;Cahue&quot;, que significa &quot;força&quot;. Somente no século XIV o processo de torrefação adquiriu a forma e o gosto que conhecemos hoje, transformando-se num rito global de sociabilidade.
             </Typography>
           </motion.div>
         </div>

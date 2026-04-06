@@ -19,7 +19,7 @@ export function HeroVideoSection() {
     // Reset video to start forceably
     videoRef.current.currentTime = 0;
 
-    let tl = gsap.timeline({
+    const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top top",
