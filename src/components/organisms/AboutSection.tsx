@@ -21,13 +21,14 @@ export function AboutSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="aspect-[4/5] bg-coffee-light rounded-3xl overflow-hidden relative"
+            className="aspect-[4/5] bg-coffee-light rounded-3xl overflow-hidden relative shadow-2xl"
           >
-            {/* Minimalist abstract representation since we don't have scraped images */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-coffee-medium to-coffee-accent opacity-90" />
-            <div className="absolute inset-0 flex items-center justify-center p-8">
-              <Typography variant="h3" className="text-white text-center">
-                Etiópia, 575 d.C.
+            {/* AI Generated Hyper-realistic Image */}
+            <img src="/images/coffee_harvesting.png" alt="Colheita de Café" className="absolute inset-0 w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            <div className="absolute inset-0 flex items-end p-8">
+              <Typography variant="h3" className="text-white">
+                Etiópia,<br/>575 d.C.
               </Typography>
             </div>
           </motion.div>

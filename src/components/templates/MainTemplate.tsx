@@ -1,71 +1,64 @@
 "use client";
 
 import React, { useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(ScrollTrigger);
+import { motion, useScroll, useTransform } from "framer-motion";
 
 interface MainTemplateProps {
   hero: React.ReactNode;
   about: React.ReactNode;
+  process?: React.ReactNode;
   types: React.ReactNode;
+  flavor?: React.ReactNode;
   benefits: React.ReactNode;
 }
 
-export function MainTemplate({ hero, about, types, benefits }: MainTemplateProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useGSAP(() => {
-    if (!containerRef.current) return;
-    
-    // The famous GSAP Stacking Cards effect
-    const cards = gsap.utils.toArray(".stack-card") as HTMLElement[];
-    
-    cards.forEach((card, i) => {
-      // Pin all cards except the very last one so it scrolls up naturally and carries the footer
-      if (i < cards.length - 1) {
-        ScrollTrigger.create({
-          trigger: card,
-          start: "top top",
-          pin: true,
-          pinSpacing: false, // Prevents pushing lower elements down, forcing them to overlap this pinned element!
-          id: `card-${i}`
-        });
-      }
-    });
-
-  }, { scope: containerRef });
-
+export function MainTemplate({ hero, about, process, types, flavor, benefits }: MainTemplateProps) {
   return (
-    <main className="w-full relative min-h-screen bg-background text-foreground block">
-      {/* O Hero roda sua própria timeline GSAP internamente */}
+    <main className="w-full relative min-h-screen bg-background text-foreground block overflow-clip">
+      
+      {/* O Hero flui naturalmente, sem arredondamentos */}
       {hero}
       
-      {/* Container das seções de cartão empilhado */}
-      <div ref={containerRef} className="relative w-full overflow-x-hidden">
+      {/* Container Pai sem overflow-hidden rígido garantindo compatibilidade do Sticky nativo */}
+      <div className="relative w-full">
         
-        {/* Seção 1: Origem */}
-        <div className="stack-card relative z-[10] w-full min-h-screen shadow-[0_-20px_50px_rgba(0,0,0,0.3)] bg-white overflow-hidden">
+        {/* Seção 1: Origem - STICKY PANEL 1 */}
+        <div className="relative md:sticky top-0 w-full min-h-screen z-[10] shadow-[0_-20px_50px_rgba(0,0,0,0.3)] bg-white will-change-transform overflow-hidden">
           {about}
         </div>
         
-        {/* Seção 2: Tipos */}
-        <div className="stack-card relative z-[20] w-full min-h-screen rounded-t-[3rem] lg:rounded-t-[4rem] shadow-[0_-20px_50px_rgba(0,0,0,0.3)] bg-coffee-light overflow-hidden">
+        {/* Seção 2: Processo - STICKY PANEL 2 */}
+        {process && (
+          <div className="relative md:sticky top-0 w-full min-h-screen z-[20] shadow-[0_-20px_50px_rgba(0,0,0,0.3)] will-change-transform overflow-hidden md:rounded-t-[2rem] lg:rounded-t-[4rem]">
+            {process}
+          </div>
+        )}
+        
+        {/* Seção 3: Tipos - STICKY PANEL 3 */}
+        <div className="relative md:sticky top-0 w-full min-h-screen z-[30] shadow-[0_-20px_50px_rgba(0,0,0,0.3)] bg-coffee-light will-change-transform overflow-hidden md:rounded-t-[2rem] lg:rounded-t-[4rem]">
           {types}
         </div>
+
+        {/* --- Fim dos Painéis Fixos --- */}
+        {/* As próximas seções fluem normalmente rolando sobre o último painel colado (Tipos) */}
+
+        {/* Seção 4: Sabor (Normal Flow) */}
+        {flavor && (
+          <div className="relative w-full min-h-screen z-[40] shadow-[0_-20px_50px_rgba(0,0,0,0.3)] overflow-hidden rounded-t-[2rem] sm:rounded-t-[4rem]">
+            {flavor}
+          </div>
+        )}
         
-        {/* Seção 3: Benefícios (Mantenho shadow e edges pra consistência visual do empilhamento final) */}
-        <div className="stack-card relative z-[30] w-full min-h-screen rounded-t-[3rem] lg:rounded-t-[4rem] shadow-[0_-20px_50px_rgba(0,0,0,0.3)] bg-white overflow-hidden">
+        {/* Seção 5: Benefícios (Normal Flow) */}
+        <div className="relative w-full min-h-screen z-[50] shadow-[0_-20px_50px_rgba(0,0,0,0.3)] bg-white overflow-hidden rounded-t-[2rem] sm:rounded-t-[4rem]">
           {benefits}
         </div>
         
       </div>
       
-      {/* Footer simples por cima da última camada */}
-      <footer className="relative z-[40] w-full py-8 text-center bg-foreground text-white/60">
-        <p className="text-sm">© {new Date().getFullYear()} Coffee Essence. Criado com Next.js + GSAP + Tailwind CSS</p>
+      {/* Footer grudado no último painel */}
+      <footer className="relative z-[50] w-full py-8 text-center bg-foreground text-white/60">
+        <p className="text-sm">© {new Date().getFullYear()} Coffee Essence. Arquitetura Híbrida.</p>
       </footer>
     </main>
   );

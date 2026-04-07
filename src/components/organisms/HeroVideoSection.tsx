@@ -59,7 +59,7 @@ export function HeroVideoSection() {
   }, { scope: containerRef }); // Automatically manages strict-mode GSAP cleanup!
 
   return (
-    <section ref={containerRef} className="relative w-full h-screen bg-background text-foreground flex items-center justify-center">
+    <section ref={containerRef} className="relative w-full h-screen bg-white text-foreground flex items-center justify-center">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center h-full">
         
         {/* Left Side: Text Content */}
@@ -80,16 +80,30 @@ export function HeroVideoSection() {
           </Button>
         </div>
 
-        {/* Right Side: Video without boundaries, using mix-blend-multiply for a stunning 3D look */}
-        <div className="relative w-full h-full flex items-center justify-center pointer-events-none">
-          <video
-            ref={videoRef}
-            src="/hero-bg.webm"
-            className="w-full max-w-[500px] xl:max-w-[600px] h-auto object-contain"
-            muted
-            playsInline
-            preload="auto"
-          />
+        {/* Right Side: Video com Fade Branco laterais para mesclar bordas verticais */}
+        <div className="relative w-full h-full flex items-center justify-center pointer-events-none mt-8 lg:mt-0">
+          <div className="relative w-full max-w-[180px] sm:max-w-[240px] md:max-w-[450px] xl:max-w-[600px] h-auto">
+            {/* Fade Branco estritamente na lateral esquerda */}
+            <div className="absolute inset-y-0 left-[0%] w-16 sm:w-24 md:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+            
+            {/* Fade Branco estritamente na lateral direita */}
+            <div className="absolute inset-y-0 right-[0%] w-16 sm:w-24 md:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+
+            {/* Fade Branco Sutil no TOPO Apenas para Mobile */}
+            <div className="absolute inset-x-0 top-[0%] h-[15%] bg-gradient-to-b from-white to-transparent z-10 pointer-events-none block md:hidden" />
+
+            {/* Fade Branco bem suave na parte inferior */}
+            <div className="absolute inset-x-0 bottom-[0%] h-12 sm:h-20 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none" />
+            
+            <video
+              ref={videoRef}
+              src="/hero-bg.mp4?v=4"
+              className="w-full h-auto object-contain"
+              muted
+              playsInline
+              preload="auto"
+            />
+          </div>
         </div>
         
       </div>
