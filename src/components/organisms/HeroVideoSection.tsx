@@ -84,7 +84,7 @@ export function HeroVideoSection() {
         <div className="relative w-full h-full flex items-center justify-center pointer-events-none">
           <video
             ref={videoRef}
-            src="/hero-bg.mp4"
+            src="/hero-bg.webm"
             className="w-full max-w-[500px] xl:max-w-[600px] h-auto object-contain"
             muted
             playsInline
